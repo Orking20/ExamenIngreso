@@ -52,10 +52,6 @@ function mostrar()
 		{
 			sexo = prompt("Ingrese el sexo (f/m): ");
 		}while(sexo != "f" && sexo != "m");
-		do
-		{
-			precio = parseInt(prompt("Ingrese el precio: "));
-		}while(isNaN(precio) || precio < 0);
 
 		if(contador == 1)
 		{
@@ -85,7 +81,7 @@ function mostrar()
 			}
 		}
 
-		sumaPrecio += precio;
+		sumaPrecio += precioPorPasajero;
 
 		continuar = confirm("¿Desea continuar? ");
 	}while(continuar == true);
