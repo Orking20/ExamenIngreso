@@ -1,145 +1,128 @@
-/*
-3)Nos ingresan una cantidad indeterminada de estadías de  vacaciones, 
-validando los datos ingresados. 
-sexo del titular ,lugar ( “bariloche”, “cataratas” o “salta”),
-temporada(“otoño”,”invierno, “verano,”primavera”),
-cantidad de personas que viajan.
-informar:
-a)el lugar más elegido
-b)el sexo de titular que lleva más pasajeros.
-c)el promedio de personas por viaje,  que viajan en invierno
-*/
+/*Bienvenidos.
+debemos alquilar el servicio de transporte para llegar a Mar del Plata con un grupo de personas, de cada persona debemos optener los siguientes datos:
+Nombre,
+estado civil ("soltero", "casado" o "viudo"),
+edad( solo mayores de edad, mas de 17),
+temperatura corporal(validar por favor)
+y sexo (validar).
+NOTA:el precio por pasajero es de $600.
+Se debe informar (solo si corresponde):
+a) La cantidad de personas con estado "viudo" de mas de 60 años.
+b) el nombre y edad de la mujer soltera mas joven.
+c) cuanto sale el viaje total sin descuento.
+d) si hay mas del 50% del pasaje que tiene mas de. 60 años , el precio final tiene un descuento del 25%, que solo mostramos si corresponde.*/
+
 function mostrar()
 {
-		
-	var respuesta;
-	var sexoTitular;
-	var lugarIngresado;
-	var temporadaIngresada;
-	var cantidadPasajeros;
+	var nombre;
+	var estadoCivil;
+	var edad;
+	var temperatura;
+	var sexo;
+	var precioPorPasajero;
+	var cantViudoMayores = 0;
+	var nombreMujerSolteraMasJoven;
+	var edadMujerSolteraMasJoven;
+	var masJoven;
+	var contador = 1;
+	var continuar;
+	var sumaPrecio = 0;
 
-	var contadorBariloche;
-	var contadorSalta;
-	var contadorCataratas;
-	var lugarMasElegido;
-	var banderaMaximosPasajeros;
-	var mayorCantidadPasajeros;
-	var sexoMasPasajeros;
-	var contadorViajesInvierno;
-	var acumuladorPersonasInvierno;
-	var promedioPersonasInvierno;
+	precioPorPasajero = 600;
 
-	respuesta="si";
-	banderaMaximosPasajeros=0;
-	contadorCataratas=0;
-	contadorSalta=0;
-	contadorBariloche=0;
-	contadorViajesInvierno=0;
-	acumuladorPersonasInvierno=0;
-
-
-	while(respuesta=="si")
+	do
 	{
-		sexoTitular=prompt("Ingrese el sexo del titular 'f' para femenino, 'm' para masculino.");
-		while(isNaN(sexoTitular)==false || sexoTitular!="f" && sexoTitular!="m")
+		do
 		{
-			sexoTitular=prompt("ERROR, ingrese un sexo valido");
+			nombre = prompt("Ingrese el nombre: ");
+		}while(!isNaN(nombre));
+		do
+		{
+			estadoCivil = prompt("Ingrese el estadoCivil (soltero/casado/viudo): ");
+		}while(estadoCivil != "soltero" && estadoCivil != "casado" && estadoCivil != "viudo");
+		do
+		{
+			edad = parseInt(prompt("Ingrese una edad: "));
+		}while(isNaN(edad) || edad < 17);
+		do
+		{
+			temperatura = parseInt(prompt("ingrese la temperatura corporal: "));
+		}while(isNaN(temperatura));
+		do
+		{
+			sexo = prompt("Ingrese el sexo (f/m): ");
+		}while(sexo != "f" && sexo != "m");
+		do
+		{
+			precio = parseInt(prompt("Ingrese el precio: "));
+		}while(isNaN(precio) || precio < 0);
+
+		if(contador == 1)
+		{
+			masJoven = edad;
+
+			contador--;
 		}
 
-		lugarIngresado=prompt("Ingrese el lugar, sea 'cataratas', 'bariloche' o 'salta' ");
-		while(isNaN(lugarIngresado)==false || lugarIngresado!="cataratas" && lugarIngresado!="bariloche" && lugarIngresado!="salta")
+		if(edad < masJoven)
 		{
-			lugarIngresado=prompt("ERROR, ingrese el lugar correcto");
-		}
-
-		temporadaIngresada=prompt("Ingrese la temporada del año (estacion)");
-		while(isNaN(temporadaIngresada)==false || temporadaIngresada!="otoño" && temporadaIngresada!="primavera" && temporadaIngresada!="verano" && temporadaIngresada!="invierno")
-		{
-			temporadaIngresada=prompt("ERROR, ingrese una estacion del año");
-		}
-
-		cantidadPasajeros=prompt("Ingrese la cantidad de pasajeros");
-		cantidadPasajeros=parseInt(cantidadPasajeros);
-		while(isNaN(cantidadPasajeros)==true || cantidadPasajeros<0)
-		{
-			cantidadPasajeros=prompt("ERROR, ingrese una cantidad correcta de pasajeros");
-			cantidadPasajeros=parseInt(cantidadPasajeros);
-		}
-
-
-		//contadores de destinos
-		switch(lugarIngresado)
-		{
-			case "bariloche":
-				contadorBariloche++;
-				break;
-			case "salta":
-				contadorSalta++;
-				break;
-			case "cataratas":
-				contadorCataratas++;
-				break;
-		}
-
-
-		//sexo del titular con mayor cantidad de pasajeros
-		if(banderaMaximosPasajeros==0)
-		{
-			sexoMasPasajeros=sexoTitular;
-			mayorCantidadPasajeros=cantidadPasajeros;
-
-			banderaMaximosPasajeros++;
-		}
-		else
-		{
-			if(mayorCantidadPasajeros<cantidadPasajeros)
+			masJoven = edad;
+			if(estadoCivil == "soltero")
 			{
-				sexoMasPasajeros=sexoTitular;
-				mayorCantidadPasajeros=cantidadPasajeros;
+				if(sexo == "f")
+				{
+					nombreMujerSolteraMasJoven = nombre;
+					edadMujerSolteraMasJoven = edad;
+				}
 			}
 		}
 
-		//promedio de personas por viaje en invierno
-		switch(temporadaIngresada)
+		if(estadoCivil == "viudo")
 		{
-			case "invierno":
-				contadorViajesInvierno++;
-				acumuladorPersonasInvierno=acumuladorPersonasInvierno+cantidadPasajeros;
+			if(edad > 60)
+			{
+				cantViudoMayores++;
+			}
 		}
 
+		sumaPrecio += precio;
 
+		continuar = confirm("¿Desea continuar? ");
+	}while(continuar == true);
 
-		respuesta=prompt("Ingrese 'si' si desea ingresar otra estadia");
-	}//fin del while principal
-
-
-	//comparo contadores de destinos
-	if(contadorCataratas>contadorSalta && contadorCataratas>contadorBariloche)
+	if(cantViudoMayores != NaN && cantViudoMayores != undefined)
 	{
-		lugarMasElegido="Cataratas";
+		document.write("Cantidad de personas viudas mayores a 60 años: " + cantViudoMayores + "<br>");
 	}
 	else
 	{
-		if(contadorSalta>contadorBariloche)
-		{
-			lugarMasElegido="Salta";
-		}
-		else
-		{
-			lugarMasElegido="Bariloche";
-		}
+		document.write("No hay personas viudas mayores a 60 años<br>");
 	}
 
-	document.write("El destino mas elegido es: "+lugarMasElegido+"<br>");
-	document.write("El sexo del titular que lleva mas pasajeros es: "+sexoMasPasajeros+"<br>");
-
-
-	//promedio de personas por viaje en invierno
-	promedioPersonasInvierno=acumuladorPersonasInvierno / contadorViajesInvierno ;
-
-	if(contadorViajesInvierno>0)
+	if(nombreMujerSolteraMasJoven != undefined)
 	{
-		document.write("El promedio de personas por viaje en invierno es de: "+promedioPersonasInvierno+"<br>");
+		document.write("La mujer soltera más joven es : " + nombreMujerSolteraMasJoven + "<br>");
+	}
+	else
+	{
+		document.write("No hay mujeres solteras<br>");
 	}
 
+	if(edadMujerSolteraMasJoven != NaN && edadMujerSolteraMasJoven != undefined)
+	{
+		document.write("La edad de la mujer soltera más joven es : " + edadMujerSolteraMasJoven + "<br>");
+	}
+	else
+	{
+		document.write("No hay mujeres solteras<br>");
+	}
+
+	if(sumaPrecio != NaN && sumaPrecio != undefined)
+	{
+		document.write("El viaje total sin descuento sale: " + sumaPrecio + "<br>");
+	}
+	else
+	{
+		document.write("No hay pasajeros<br>");
+	}
 }
