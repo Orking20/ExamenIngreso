@@ -1,155 +1,112 @@
-/*Debemos realizar la carga de una compra de 5(cinco) productos de desinfección
-de cada una debo obtener los siguientes datos:
-el nombre del producto el tipo de producto (validar "ALCOHOL", "IAC" o "QUAT"),
-el precio (validar entre 100 y 300),
-la cantidad de unidades (no puede ser 0 o negativo y no debe superar las 1000 unidades),
-el tipo de inflamable("ignífugo", "combustible", "explosivo" ) y la Marca.
-Se debe Informar al usuario lo siguiente:
-a) El promedio de cantidad por tipo de producto
-b) El tipo de inflamable con más cantidad de unidades en total de la compra
-c) Cuántas unidades de IAC con precios menos a 200 (inclusive) se compraron en total
-d) la marca y tipo del más caro de los productos*/
-
+/*
+1)De 5  personas que ingresan al hospital se deben tomar y 
+validar los siguientes datos.
+nombre ,peso, sexo y edad.
+a)informar la cantidad de mujeres.
+b)la edad promedio en total.
+c)el hombre mas pesado.
+pedir datos por prompt y mostrar por document.write o console.log
+*/
 function mostrar()
 {
-	var nombre;
-	var marca;
-	var producto;
-	var precio;
-	var cantUnidades;
-	var inflamables;
-	var unidadesAlcohol = 0;
-	var unidadesIac = 0;
-	var unidadesQuat = 0;
-	var cantAlcohol = 0;
-	var cantIac = 0;
-	var cantQuat = 0;
-	var promedioAlcohol;
-	var promedioIac;
-	var promedioQuat;
-	var unidadesIgnifugos = 0;
-	var unidadesCombustibles = 0;
-	var unidadesExplosivos = 0;
-	var cantUnidadesIacPreciosBajos = 0;
-	var productoMasCaro;
-	var marcaMasCaro;
-	var tipoMasCaro;
-	var contador = 1;
-	
-	for(var i = 0; i < 5; i++)
+
+var contador;
+var nombreIngresado;
+var pesoIngresado;
+var edadIngresada;
+var sexoIngresado;
+var acumuladorEdad;
+var contadorMujeres;
+var promedioEdadTotal;
+var banderaDelMasPesado;
+var pesoDelMasPesado;
+var nombreDelMasPesado;
+
+
+acumuladorEdad=0;
+banderaDelMasPesado=true;
+contadorMujeres=0;
+contador=0;
+
+
+	for(contador=0;contador<3;contador++)
 	{
-		do
+		sexoIngresado=prompt("ingrese el sexo");
+		while(isNaN(sexoIngresado)==false || sexoIngresado!="femenino" && sexoIngresado!="masculino" && sexoIngresado!="no binario")
 		{
-			nombre = prompt("Ingrese el nombre: ");
-		}while(!isNaN(nombre));
-		do
-		{
-			marca = prompt("Ingrese la marca: ");
-		}while(!isNaN(marca));
-		do
-		{
-			producto = prompt("Ingrese el producto (alcohol/iac/quat): ");
-		}while(producto != "alcohol" && producto != "iac" && producto != "quat");
-		do
-		{
-			precio = parseInt(prompt("Ingrese el precio (entre 100 y 300): "));
-		}while(isNaN(precio) || precio < 100 || precio > 300);
-		do
-		{
-			cantUnidades = parseInt(prompt("Ingrese la cantidad de unidades (máximo 1000): "));
-		}while(isNaN(cantUnidades) || cantUnidades <= 0 || cantUnidades > 1000);
-		do
-		{
-			inflamables = prompt("Ingrese el tipo de inflamable (ignifugo/combustible/explosivo): ");
-		}while(inflamables != "ignifugo" && inflamables != "combustible" && inflamables != "explosivo");
-
-		if(contador == 1)
-		{
-			productoMasCaro = precio;
-			marcaMasCaro = marca;
-			tipoMasCaro = inflamables;
-
-			contador--;
+			sexoIngresado=prompt("error, reingrese femenino, masculino o no binario");
 		}
 
-		if(producto == "alcohol")
+		pesoIngresado=prompt("ingrese el peso");
+		pesoIngresado=parseInt(pesoIngresado);
+		while(isNaN(pesoIngresado)==true || pesoIngresado<0|| pesoIngresado>150)
 		{
-			unidadesAlcohol += cantUnidades;
-			cantAlcohol++;
+			pesoIngresado=prompt("error, reingrese un peso valido");
+			pesoIngresado=parseInt(pesoIngresado);
 		}
-		else if(producto == "iac")
+		
+		nombreIngresado=prompt("ingrese el nombre");		
+		while(isNaN(nombreIngresado)==false)
 		{
-			unidadesIac += cantUnidades;
-			cantIac++;
+			nombreIngresado=prompt("error, reingrese un nombre valido");			
+		}
 
-			if(precio <= 200)
+		edadIngresada=prompt("ingrese la edad");
+		edadIngresada=parseInt(edadIngresada);
+		while(isNaN(edadIngresada)==true || edadIngresada<0 || edadIngresada>110)
+		{
+			edadIngresada=prompt("error, reingrese una edad valida");
+			edadIngresada=parseInt(edadIngresada);
+		}
+
+		switch(sexoIngresado)
+		{
+			case "femenino":
+			contadorMujeres++;
+			break;
+		}
+
+		if(sexoIngresado=="masculino")
+		{
+			if(banderaDelMasPesado==true)
 			{
-				cantUnidadesIacPreciosBajos++;
+				pesoDelMasPesado=pesoIngresado;
+				nombreDelMasPesado=nombreIngresado;
+				banderaDelMasPesado=false;
+			}
+			else
+			{
+				if(pesoDelMasPesado<pesoIngresado)
+				{
+					pesoDelMasPesado=pesoIngresado;
+					nombreDelMasPesado=nombreIngresado;
+				}
 			}
 		}
-		else if(producto == "quat")
-		{
-			unidadesQuat += cantUnidades;
-			cantQuat++;
-		}
 
-		if(inflamables == "ignifugo")
-		{
-			unidadesIgnifugos += cantUnidades;
-		}
-		else if(inflamables == "combustible")
-		{
-			unidadesCombustibles += cantUnidades;
-		}
-		else if(inflamables == "explosivo")
-		{
-			unidadesExplosivos += cantUnidades;
-		}
+	acumuladorEdad=acumuladorEdad+edadIngresada;
 
-		if(precio > productoMasCaro)
-		{
-			productoMasCaro = precio;
-			marcaMasCaro = marca;
-			tipoMasCaro = inflamables;
-		}
 	}
 
-	promedioAlcohol = unidadesAlcohol / cantAlcohol;
-	promedioIac = unidadesIac / cantIac;
-	promedioQuat = unidadesQuat / cantQuat;
+	promedioEdadTotal=acumuladorEdad/contador;
+	
+	console.log("la edad promedio es: "+promedioEdadTotal);
 
-	document.write("Promedio de unidades de alcohol: " + promedioAlcohol + "<br>");
-	document.write("Promedio de unidades de iac: " + promedioIac + "<br>");
-	document.write("Promedio de unidades de quat: " + promedioQuat + "<br>");
-
-	if(unidadesIgnifugos > unidadesCombustibles)
+	if(contadorMujeres==0)
 	{
-		if(unidadesIgnifugos > unidadesExplosivos)
-		{
-			document.write("El tipo de inflamable con más cantidad de unidades en total de la compra es ignífugo con " + unidadesIgnifugos + " unidades" + "<br>");
-		}
-		else
-		{
-			document.write("El tipo de inflamable con más cantidad de unidades en total de la compra es explosivo con " + unidadesExplosivos + " unidades" + "<br>");
-		}
-	}
-	else if(unidadesCombustibles > unidadesIgnifugos)
-	{
-		if(unidadesCombustibles > unidadesExplosivos)
-		{
-			document.write("El tipo de inflamable con más cantidad de unidades en total de la compra es combustible con " + unidadesCombustibles + " unidades" + "<br>");
-		}
-		else
-		{
-			document.write("El tipo de inflamable con más cantidad de unidades en total de la compra es explosivo con " + unidadesExplosivos + " unidades" + "<br>");
-		}
+		console.log("no se ingresaron mujeres");
 	}
 	else
 	{
-		document.write("El tipo de inflamable con más cantidad de unidades en total de la compra es explosivo con " + unidadesExplosivos + " unidades" + "<br>");
+		console.log("La cantidad de mujeres es: "+contadorMujeres);
 	}
 
-	document.write("Unidades de IAC con precios menores a 200: " + cantUnidadesIacPreciosBajos + "<br>");
-	document.write("Marca del más caro: " + marcaMasCaro + "<br>");
-	document.write("Tipo del más caro: " + tipoMasCaro + "<br>");
+	if(banderaDelMasPesado==true)
+	{
+		console.log("no se ingresaron hombres");
+	}
+	else
+	{
+		console.log("el hombre mas pesado es: "+nombreDelMasPesado);
+	}
 }

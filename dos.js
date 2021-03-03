@@ -1,196 +1,112 @@
-/*Realizar el algoritmo que permita ingresar los datos de los alumnos de una division de la UTN FRA, los datos solicitados son:
-nombre
-Tipo curasada("libre";"presencial";"remota")
-cantidad de materias( mas de cero y menos de 8)
-Sexo ( femenino , masculino , no binario)
-Nota promedio (entre 0 y 10)
-edad (validar)
-se debe informar de existir, o informar que no existe , en el caso que corresponda.
-a) El nombre del mejor promedio que no sea masculino
-b) El nombre del mas joven de los alumnos entre los que la dan libre
-d) El promedio de nota por sexo
-f) La edad y nombre del que cursa mas materias que no sean en forma remota*/
-
-function mostrar()
+/*
+2)De una compra debes ingresar una cantidad indeterminada de productos,
+ validando los siguientes datos:
+marca, precio, peso en kilogramos, tipo(sólido o líquido)
+a)informar el peso total de la compra.
+b)la marca del más caro de los líquidos
+c)la marca del más barato de los sólidos
+*/function mostrar()
 {
-	var nombre;
-	var cursada;
-	var cantMaterias;
-	var sexo;
-	var notaPromedio;
-	var edad;
-	var promedioMaximo;
-	var nombrePromedioMaximo;
-	var contador = 1;
-	var contador2 = 1;
-	var contador3 = 1;
-	var masJoven;
-	var nombreMasJoven;
-	var sumaNotaMasculino = 0;
-	var sumaNotaFemenino = 0;
-	var cantMasculino = 0;
-	var cantFemenino = 0;
-	var promedioMasculino;
-	var promedioFemenino;
-	var masMaterias;
-	var edadMasMaterias;
-	var nombreMasMaterias;
-	var continuar;
+	var marca;
+	var peso;
+	var precio;
+	var tipo;
+	var respuesta;
+	var acumuladorPeso;
+	var marcaLiquidoCaro;
+	var precioLiquidoIngresaso;
+	var banderaPrimerLiquido;
+	var banderaSolidoMasBarato;
+	var marcaMasBaratoSolido;
+	var precioMasBaratoSolido;
 
-	do
+	banderaSolidoMasBarato=0;
+	banderaPrimerLiquido=0;
+	acumuladorPeso=0;
+	
+
+	respuesta="si";
+
+	while(respuesta=="si")
 	{
-		do
+		marca=prompt("Ingrese por favor la marca");//puede ser numero
+		while(marca==" ")
 		{
-			nombre = prompt("Ingrese su nombre: ");
-		}while(!isNaN(nombre));
-		do
-		{
-			cursada = prompt("Ingrese el tipo de cursada (libre/presencial/remota): ");
-		}while(cursada != "libre" && cursada != "presencial" && cursada != "remota");
-		do
-		{
-			cantMaterias = parseInt(prompt("Ingrese la cantidad de materias: "));
-		}while(isNaN(cantMaterias) || cantMaterias < 1 || cantMaterias >= 8);
-		do
-		{
-			sexo = prompt("Ingrese su sexo (m/f): ");
-		}while(sexo != "m" && sexo != "f");
-		do
-		{
-			notaPromedio = parseInt(prompt("Ingrese la nota promedio (entre 0 y 10): "));
-		}while(isNaN(notaPromedio) || notaPromedio < 0 || notaPromedio > 10);
-		do
-		{
-			edad = parseInt(prompt("Ingrese la edad: "));
-		}while(isNaN(edad));
-
-		if(cursada != "remota")
-		{
-			if(contador3 == 1)
-			{
-				masMaterias = cantMaterias;
-				edadMasMaterias = edad;
-				nombreMasMaterias = nombre;
-
-				contador3--;
-			}
-
-			if(cantMaterias > masMaterias)
-			{
-				masMaterias = cantMaterias;
-				edadMasMaterias = edad;
-			}
-		}
-		else if(cursada == "remota")
-		{
-			if(cantMaterias > masMaterias)
-			{
-				masMaterias = cantMaterias;
-				nombreMasMaterias = nombre;
-			}
+			tipo=prompt("Error, ingrese una marca valida");
 		}
 
-		if(cursada == "libre")
+		tipo=prompt("Ingrese por favor el tipo");
+		while(!isNaN(tipo)||tipo!="solido"&&tipo!="liquido")
 		{
-			if(contador == 1)
-			{
-				masJoven = edad;
-				nombreMasJoven = nombre;
-
-				contador2--;
-			}
-
-			if(edad < masJoven)
-			{
-				masJoven = edad;
-				nombreMasJoven = nombre;
-			}
+			tipo=prompt("Error, ingrese un tipo valido");
 		}
 
-		if(sexo == "f")
+		peso=prompt("Ingrese el peso en kilogramos");
+		peso=parseInt(peso);
+		while(isNaN(peso)||peso<1)
 		{
-			if(contador == 1)
-			{
-				promedioMaximo = notaPromedio;
-				nombrePromedioMaximo = nombre;
-
-				contador--;
-			}
-
-			if(notaPromedio > promedioMaximo)
-			{
-				promedioMaximo = notaPromedio;
-				nombrePromedioMaximo = nombre;
-			}
-
-			sumaNotaFemenino += notaPromedio;
-			cantFemenino++;
-		}
-		else if(sexo == "m")
-		{
-			sumaNotaMasculino += notaPromedio;
-			cantMasculino++;
+			
+			peso=prompt("Error, Ingrese el peso en kilogramos");
+			peso=parseInt(peso);
 		}
 
+		precio=prompt("Ingrese el precio por favor");
+		precio=parseInt(precio);
+		while(isNaN(precio)||precio<1)
+		{
+			precio=prompt("Ingrese el precio por favor");
+			precio=parseInt(precio);
+
+		}
+
+		acumuladorPeso=acumuladorPeso+peso;		
+  		
+
+		switch(tipo)
+		{
+			case "liquido":
+				if(banderaPrimerLiquido==0)
+				{
+					marcaLiquidoCaro=marca;
+					precioLiquidoIngresaso=precio;
+					banderaPrimerLiquido=1;
+				}
+				else
+				{
+					if(precio>precioLiquidoIngresaso)
+					{
+						marcaLiquidoCaro=marca;
+						precioLiquidoIngresaso=precio;
+					}
+				}
+				break;
+			case "solido":
+				if(banderaSolidoMasBarato==0)
+				{
+					marcaMasBaratoSolido=marca;
+					precioMasBaratoSolido=precio;
+					banderaSolidoMasBarato=1;
+				}
+				else
+				{
+					if(precio<precioMasBaratoSolido)
+					{
+						marcaMasBaratoSolido=marca;
+						precioMasBaratoSolido=precio;
+					}
+				}
+				break;
+					
+		}//cierre switch
+
+		
+		respuesta=prompt("Desea seguir?")
+	} //cierre while
 
 
-		continuar = confirm("¿Desea continuar? ");
-	}while(continuar == true);
 
-	promedioFemenino = sumaNotaFemenino / cantFemenino;
-	promedioMasculino = sumaNotaMasculino / cantMasculino;
+ console.log("El peso total de la compra es: "+acumuladorPeso); 					
+ console.log("La marca del más caro de los liquidos es: "+marcaLiquidoCaro);
+ console.log("La marca del más barato de los solidos es: "+marcaMasBaratoSolido);
 
-	if(nombrePromedioMaximo != undefined)
-	{
-		document.write("Nombre de mejor promedio femenino: " + nombrePromedioMaximo + "<br>");
-	}
-	else
-	{
-		document.write("No hay alumnas<br>");
-	}
-
-	if(nombreMasJoven != undefined)
-	{
-		document.write("Nombre del mas joven de los alumnos entre los que la dan libre: " + nombreMasJoven + "<br>");
-	}
-	else
-	{
-		document.write("No hay alumnos o no hay almunos que den libre<br>");
-	}
-
-	if(promedioMasculino != NaN)
-	{
-		document.write("Promedio de notas de masculinos: " + promedioMasculino + "<br>");
-	}
-	else
-	{
-		document.write("No hay alumnos masculinos<br>");
-	}
-
-	if(promedioFemenino != NaN)
-	{
-		document.write("Promedio de notas de femeninos: " + promedioFemenino + "<br>");
-	}
-	else
-	{
-		document.write("No hay alumnas<br>");
-	}
-
-	if(nombreMasMaterias != undefined)
-	{
-		document.write("Nombre del que cursa mas materias de forma no remota: " + nombreMasMaterias + "<br>");
-	}
-	else
-	{
-		document.write("Todos los alumnos cursan de forma remota<br>");
-	}
-
-	if(edadMasMaterias != NaN)
-	{
-		document.write("Edad del que cursa mas materias de forma no remota: " + edadMasMaterias + "<br>");
-	}
-	else
-	{
-		document.write("Todos los alumnos cursan de forma remota<br>");
-	}
 }
