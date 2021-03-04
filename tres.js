@@ -28,6 +28,8 @@ function mostrar()
 	var continuar;
 	var sumaPrecio = 0;
 	var descuento;
+	var cantPasajeros = 0;
+	var cantMayores = 0;
 	var precioMayores;
 
 	precioPorPasajero = 600;
@@ -55,6 +57,8 @@ function mostrar()
 		{
 			sexo = prompt("Ingrese el sexo (f/m): ");
 		}while(sexo != "f" && sexo != "m");
+
+		cantPasajeros++;
 
 		if(contador == 1)
 		{
@@ -85,6 +89,11 @@ function mostrar()
 		}
 
 		if(edad > 60)
+		{
+			cantMayores++;
+		}
+
+		if(cantMayores > cantPasajeros / 2)
 		{
 			precioMayores = precioPorPasajero * descuento / 100;
 		}
@@ -128,5 +137,10 @@ function mostrar()
 	else
 	{
 		document.write("No hay pasajeros<br>");
+	}
+
+	if(cantMayores > cantPasajeros / 2)
+	{
+		document.write("El precio de los mayores de 60 años es: " + precioMayores);
 	}
 }
