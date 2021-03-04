@@ -27,8 +27,11 @@ function mostrar()
 	var contador = 1;
 	var continuar;
 	var sumaPrecio = 0;
+	var descuento;
+	var precioMayores;
 
 	precioPorPasajero = 600;
+	descuento = 25;
 
 	do
 	{
@@ -79,6 +82,11 @@ function mostrar()
 			{
 				cantViudoMayores++;
 			}
+		}
+
+		if(edad > 60)
+		{
+			precioMayores = precioPorPasajero * descuento / 100;
 		}
 
 		sumaPrecio += precioPorPasajero;
